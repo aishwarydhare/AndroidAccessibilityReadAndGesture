@@ -1,0 +1,231 @@
+AccessibilityEvent
+public final class AccessibilityEvent  extends AccessibilityRecord implements Parcelable
+
+This class represents accessibility events that are sent by the system when something notable happens in the user interface. For example, when a Button is clicked, a View is focused, etc.
+An accessibility event is fired by an individual view which populates the event with data for its state and requests from its parent to send the event to interested parties. The parent can optionally add an AccessibilityRecord for itself before dispatching a similar request to its parent. A parent can also choose not to respect the request for sending an event. The accessibility event is sent by the topmost view in the view tree. Therefore, an AccessibilityService can explore all records in an accessibility event to obtain more information about the context in which the event was fired.
+The main purpose of an accessibility event is to expose enough information for an AccessibilityService to provide meaningful feedback to the user. Sometimes however, an accessibility service may need more contextual information then the one in the event pay-load. In such cases the service can obtain the event source which is an AccessibilityNodeInfo (snapshot of a View state) which can be used for exploring the window content. Note that the privilege for accessing an event's source, thus the window content, has to be explicitly requested. For more details refer to AccessibilityService. If an accessibility service has not requested to retrieve the window content the event will not contain reference to its source. Also for events of type TYPE_NOTIFICATION_STATE_CHANGED the source is never available.
+This class represents various semantically different accessibility event types. Each event type has an associated set of related properties. In other words, each event type is characterized via a subset of the properties exposed by this class. For each event type there is a corresponding constant defined in this class. Follows a specification of the event types and their associated properties:
+Developer Guides
+For more information about creating and processing AccessibilityEvents, read the Accessibility developer guide.
+VIEW TYPES
+View clicked - represents the event of clicking on a View like Button, CompoundButton, etc. Type:TYPE_VIEW_CLICKED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+isPassword() - Whether the source is password.
+isChecked() - Whether the source is checked.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+View long clicked - represents the event of long clicking on a View like Button, CompoundButton, etc Type:TYPE_VIEW_LONG_CLICKED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+isPassword() - Whether the source is password.
+isChecked() - Whether the source is checked.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+View selected - represents the event of selecting an item usually in the context of an AdapterView. Type: TYPE_VIEW_SELECTED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+isPassword() - Whether the source is password.
+isChecked() - Whether the source is checked.
+getItemCount() - The number of selectable items of the source.
+getCurrentItemIndex() - The currently selected item index.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+View focused - represents the event of focusing a View. Type: TYPE_VIEW_FOCUSED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+isPassword() - Whether the source is password.
+isChecked() - Whether the source is checked.
+getItemCount() - The number of focusable items on the screen.
+getCurrentItemIndex() - The currently focused item index.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+View text changed - represents the event of changing the text of an EditText. Type: TYPE_VIEW_TEXT_CHANGED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source.
+isEnabled() - Whether the source is enabled.
+isPassword() - Whether the source is password.
+isChecked() - Whether the source is checked.
+getFromIndex() - The text change start index.
+getAddedCount() - The number of added characters.
+getRemovedCount() - The number of removed characters.
+getBeforeText() - The text of the source before the change.
+getContentDescription() - The content description of the source.
+View text selection changed - represents the event of changing the text selection of an EditText. Type: TYPE_VIEW_TEXT_SELECTION_CHANGED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source.
+isPassword() - Whether the source is password.
+getFromIndex() - The selection start index.
+getToIndex() - The selection end index.
+getItemCount() - The length of the source text.
+isEnabled() - Whether the source is enabled.
+getContentDescription() - The content description of the source.
+View text traversed at movement granularity - represents the event of traversing the text of a view at a given granularity. For example, moving to the next word. Type: TYPE_VIEW_TEXT_TRAVERSED_AT_MOVEMENT_GRANULARITY Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getMovementGranularity() - Sets the granularity at which a view's text was traversed.
+getText() - The text of the source's sub-tree.
+getFromIndex() - The start the text that was skipped over in this movement. This is the starting point when moving forward through the text, but not when moving back.
+getToIndex() - The end of the text that was skipped over in this movement. This is the ending point when moving forward through the text, but not when moving back.
+isPassword() - Whether the source is password.
+isEnabled() - Whether the source is enabled.
+getContentDescription() - The content description of the source.
+getMovementGranularity() - Sets the granularity at which a view's text was traversed.
+getAction() - Gets traversal action which specifies the direction.
+View scrolled - represents the event of scrolling a view. If the source is a descendant of AdapterView the scroll is reported in terms of visible items - the first visible item, the last visible item, and the total items - because the the source is unaware of its pixel size since its adapter is responsible for creating views. In all other cases the scroll is reported as the current scroll on the X and Y axis respectively plus the height of the source in pixels. Type: TYPE_VIEW_SCROLLED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+Note: This event type is not dispatched to descendants though View.dispatchPopulateAccessibilityEvent(AccessibilityEvent), hence the event source View and the sub-tree rooted at it will not receive calls to View.onPopulateAccessibilityEvent(AccessibilityEvent). The preferred way to add text content to such events is by setting the contentDescription of the source view.
+TRANSITION TYPES
+Window state changed - represents the event of opening a PopupWindow, Menu, Dialog, etc. Type: TYPE_WINDOW_STATE_CHANGED Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+Window content changed - represents the event of change in the content of a window. This change can be adding/removing view, changing a view size, etc.
+Note: This event is fired only for the window source of the last accessibility event different from TYPE_NOTIFICATION_STATE_CHANGED and its purpose is to notify clients that the content of the user interaction window has changed. Type: TYPE_WINDOW_CONTENT_CHANGED Properties:
+getEventType() - The type of the event.
+getContentChangeTypes() - The type of content changes.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+Note: This event type is not dispatched to descendants though View.dispatchPopulateAccessibilityEvent(AccessibilityEvent), hence the event source View and the sub-tree rooted at it will not receive calls to View.onPopulateAccessibilityEvent(AccessibilityEvent). The preferred way to add text content to such events is by setting the contentDescription of the source view.
+Windows changed - represents the event of changes in the windows shown on the screen such as a window appeared, a window disappeared, a window size changed, a window layer changed, etc. Type: TYPE_WINDOWS_CHANGED Properties:
+getEventType() - The type of the event.
+getEventTime() - The event time.
+Note: You can retrieve the AccessibilityWindowInfo for the window source of the event via getSource() to get the source node on which then call AccessibilityNodeInfo.getWindow() to get the window. Also all windows on the screen can be retrieved by a call to android.accessibilityservice.AccessibilityService.getWindows().
+NOTIFICATION TYPES
+Notification state changed - represents the event showing Notification. Type: TYPE_NOTIFICATION_STATE_CHANGED Properties:
+getEventType() - The type of the event.
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getParcelableData() - The posted Notification.
+getText() - Text for providing more context.
+Note: This event type is not dispatched to descendants though View.dispatchPopulateAccessibilityEvent(AccessibilityEvent), hence the event source View and the sub-tree rooted at it will not receive calls to View.onPopulateAccessibilityEvent(AccessibilityEvent). The preferred way to add text content to such events is by setting the contentDescription of the source view.
+EXPLORATION TYPES
+View hover enter - represents the event of beginning to hover over a View. The hover may be generated via exploring the screen by touch or via a pointing device. Type: TYPE_VIEW_HOVER_ENTER Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+View hover exit - represents the event of stopping to hover over a View. The hover may be generated via exploring the screen by touch or via a pointing device. Type: TYPE_VIEW_HOVER_EXIT Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the source's sub-tree.
+isEnabled() - Whether the source is enabled.
+getContentDescription() - The content description of the source.
+getScrollX() - The offset of the source left edge in pixels (without descendants of AdapterView).
+getScrollY() - The offset of the source top edge in pixels (without descendants of AdapterView).
+getFromIndex() - The zero based index of the first visible item of the source, inclusive (for descendants of AdapterView).
+getToIndex() - The zero based index of the last visible item of the source, inclusive (for descendants of AdapterView).
+getItemCount() - The total items of the source (for descendants of AdapterView).
+Touch interaction start - represents the event of starting a touch interaction, which is the user starts touching the screen. Type: TYPE_TOUCH_INTERACTION_START Properties:
+getEventType() - The type of the event.
+Note: This event is fired only by the system and is not passed to the view tree to be populated.
+Touch interaction end - represents the event of ending a touch interaction, which is the user stops touching the screen. Type: TYPE_TOUCH_INTERACTION_END Properties:
+getEventType() - The type of the event.
+Note: This event is fired only by the system and is not passed to the view tree to be populated.
+Touch exploration gesture start - represents the event of starting a touch exploring gesture. Type: TYPE_TOUCH_EXPLORATION_GESTURE_START Properties:
+getEventType() - The type of the event.
+Note: This event is fired only by the system and is not passed to the view tree to be populated.
+Touch exploration gesture end - represents the event of ending a touch exploring gesture. Type: TYPE_TOUCH_EXPLORATION_GESTURE_END Properties:
+getEventType() - The type of the event.
+Note: This event is fired only by the system and is not passed to the view tree to be populated.
+Touch gesture detection start - represents the event of starting a user gesture detection. Type: TYPE_GESTURE_DETECTION_START Properties:
+getEventType() - The type of the event.
+Note: This event is fired only by the system and is not passed to the view tree to be populated.
+Touch gesture detection end - represents the event of ending a user gesture detection. Type: TYPE_GESTURE_DETECTION_END Properties:
+getEventType() - The type of the event.
+Note: This event is fired only by the system and is not passed to the view tree to be populated.
+MISCELLANEOUS TYPES
+Announcement - represents the event of an application making an announcement. Usually this announcement is related to some sort of a context change for which none of the events representing UI transitions is a good fit. For example, announcing a new page in a book. Type: TYPE_ANNOUNCEMENT Properties:
+getEventType() - The type of the event.
+getSource() - The source info (for registered clients).
+getClassName() - The class name of the source.
+getPackageName() - The package name of the source.
+getEventTime() - The event time.
+getText() - The text of the announcement.
+isEnabled() - Whether the source is enabled.
+Security note
+Since an event contains the text of its source privacy can be compromised by leaking sensitive information such as passwords. To address this issue any event fired in response to manipulation of a PASSWORD field does NOT CONTAIN the text of the password.
+See also:
+AccessibilityManager
+AccessibilityService
+AccessibilityNodeInfo
+  < Android API 28 Platform >
+External documentation for `AccessibilityEvent`
